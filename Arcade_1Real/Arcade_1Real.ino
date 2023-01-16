@@ -23,12 +23,12 @@
 #define SS_PIN 10
 MFRC522 LeitorRFID (SS_PIN, RST_PIN);
 
-#define Buzzer 3
+#define Buzzer 4
 
 //Rele
 #define Coin A4 //Com transitor
 
-#define Botao A3
+#define Botao A0
 int botaoEstado = 0;
 
 //Variaveis
