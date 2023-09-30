@@ -9,7 +9,7 @@
 #define B5 14 //Tab
 #define B6 16 //e
 #define B7 10 //Enter
-//#define C1 2 //m[Ctrl Esquerdo]i1f[Alt Esquerdo]
+#define C1 2 //m[Ctrl Esquerdo]i1f[Alt Esquerdo]
 #define C2 3 //m[Ctrl Esquerdo]i1f[Alt Esquerdo]
 #define P1 8 //l
 #define L1 9 //p
@@ -23,7 +23,7 @@
 #define q 113
 #define Tab 179
 #define e 101
-#define Enter 176
+#define Enter KEY_RETURN
 #define l 108
 #define p 112
 //-----------------------------------------------
@@ -37,10 +37,12 @@ int B4_state = 0;
 int B5_state = 0;
 int B6_state = 0;
 int B7_state = 0;
-//int C1_state = 0;
+int C1_state = 0;
 int C2_state = 0;
 int P1_state = 0;
 int L1_state = 0;
+bool configura = false;
+bool pagando = false;
 
 void setup() {
   Serial.begin(9600);
@@ -55,8 +57,8 @@ void setup() {
   pinMode(B5, INPUT_PULLUP);
   pinMode(B6, INPUT_PULLUP);
   pinMode(B7, INPUT_PULLUP);
-  //pinMode(C1, INPUT_PULLUP);
-  pinMode(C2, INPUT);
+  pinMode(C1, INPUT_PULLUP);
+  pinMode(C2, INPUT_PULLUP);
   pinMode(P1, INPUT_PULLUP);
   pinMode(L1, INPUT_PULLUP);
 //------------------------------
@@ -73,7 +75,7 @@ void loop() {
   B5_state = digitalRead(B5);
   B6_state = digitalRead(B6);
   B7_state = digitalRead(B7);
-  //C1_state = digitalRead(C1);
+  C1_state = digitalRead(C1);
   C2_state = digitalRead(C2);
   P1_state = digitalRead(P1);
   L1_state = digitalRead(L1);
@@ -112,41 +114,53 @@ void loop() {
   }
 
   if (B7_state == LOW) {
-    Keyboard.press(Enter);
-  }
-  else{
-    Keyboard.release(Enter);;
+    Keyboard.write(Enter);
+    delay(300);
   }
 
-  /*if (C1_state == LOW) {
-    Keyboard.write(109);
-    Keyboard.write(128);
-    Keyboard.write(105);
-    Keyboard.write(49);
-    Keyboard.write(102);
-    Keyboard.write(130);
-    delay(85);
-  }*/
+  if (C1_state == LOW) { 
+  Keyboard.write('m');
+  Keyboard.write(KEY_LEFT_CTRL);
+  Keyboard.write('i');
+  Keyboard.write('1');
+  Keyboard.write('f');
+  Keyboard.write(KEY_LEFT_ALT);
+  delay(100);
+  }
 
     if (C2_state == LOW) {
-    Keyboard.write(109);
-    Keyboard.write(128);
-    Keyboard.write(105);
-    Keyboard.write(49);
-    Keyboard.write(102);
-    Keyboard.write(130);
-    delay(100);
+    Keyboard.write('m');
+    Keyboard.write(KEY_LEFT_CTRL);
+    Keyboard.write('i');
+    Keyboard.write('1');
+    Keyboard.write('f');
+    Keyboard.write(KEY_LEFT_ALT);
+    delay(150);
   }
 
-  if (P1_state == LOW) {
+  if (P1_state == LOW && configura == false && pagando  == false) {
+    pagando = true;
     Keyboard.write(l);
     delay(300);
   }
 
-  if (L1_state == LOW) {
+  if (L1_state == LOW && configura == false && pagando == false) {
+    configura = true;
+    delay(300);
+  }
+  else if (L1_state == LOW && configura == true && pagando == false){
+    Keyboard.releaseAll();
+    configura = false;
+    delay(300);
+  }
+  else if(L1_state == LOW && configura == false && pagando == true){
+    Keyboard.write(p);
+    pagando = false;
+    delay(300);
+  }
+  if (configura == true){
     Keyboard.press(p);
   }
-  else{
-    Keyboard.release(p);
-  }
+  
+//---------------------------
 }
