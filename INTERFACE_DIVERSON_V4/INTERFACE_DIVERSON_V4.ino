@@ -1,4 +1,4 @@
-//Programa: Trocadora de Fichas
+//Programa: Interface Diversom USB V4
 //Autor: Paulo Andre e Vitor Gabriel
 //Data: 11/01/2021.
 
