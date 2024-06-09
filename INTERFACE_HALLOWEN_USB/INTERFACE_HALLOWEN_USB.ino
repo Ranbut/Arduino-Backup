@@ -44,45 +44,48 @@ void loop() {
     switch(key){
       case 'Y':
         Serial.println("Y");
-        Keyboard.write(89);
+        Keyboard.press('Y');
         break;
       case 'T':
         Serial.println("T");
-        Keyboard.write(84);
+        Keyboard.press('T');
         break;
       case 'J':
         Serial.println("J");
-        Keyboard.write(74);
+        Keyboard.press('J');
         break;
       case 'V':
         Serial.println("V");
-        Keyboard.write(86);
+        Keyboard.press('V');
         break;
        case 'F':
         Serial.println("F");
-        Keyboard.write(70);
+        Keyboard.press('F');
         break;
       case 'H':
         Serial.println("H");
-        Keyboard.write(72);
+        Keyboard.press('H');
         break;
       case 'G':
         Serial.println("G");
-        Keyboard.write(71);
+        Keyboard.press('G');
         break;
       case 'M':
         Serial.println("M");
-        Keyboard.write(77);
+        Keyboard.press('M');
+        //Keyboard.write(77);
         break;
       case 'B':
         Serial.println("B");
-        Keyboard.write(66);
+        Keyboard.press('B');
         break;
       case 'N':
         Serial.println("N");
-        Keyboard.write(78);
+        Keyboard.press('N');
         break;
     }
+    delay(50);
+    Keyboard.releaseAll();
   }
   
   //Terra
