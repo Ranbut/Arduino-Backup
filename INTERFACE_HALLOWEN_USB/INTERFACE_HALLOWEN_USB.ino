@@ -13,6 +13,8 @@ const byte COLS = 2;
 #define coinButton 15 //Coin
 #define readingButton A2 //Leitura
 
+bool segurando = false;
+
 byte rowPins[ROWS] = { 2, 3, 4, 5, 6, 7 }; // Marrom, Roxo, Preto, Cinza, Azul, Laranja 
 byte colPins[COLS] = { 8, 9 }; // Vermelho, Branco
 
@@ -32,7 +34,7 @@ void setup() {
   Serial.begin(9600);
   
   pinMode(payButton, INPUT_PULLUP); //Pagar
-  pinMode(coinButton, INPUT_PULLUP); //Coin
+  pinMode(coinButton, INPUT); //Coin
   pinMode(readingButton, INPUT_PULLUP); //Leitura
   Keyboard.begin();
 }
@@ -91,17 +93,24 @@ void loop() {
   //Terra
   if (digitalRead(payButton) == LOW) 
   {
+    Serial.println("R");
     Keyboard.write(82); //R
-    delay (100);
+    while(!digitalRead(payButton)){}
+    delay(300);
   }
-    if (digitalRead(coinButton) == LOW) 
+  
+  if (digitalRead(coinButton) == LOW) 
   {
+    Serial.println("P");
     Keyboard.write(80); //P
-    delay (100);
+    delay(50);
   }
-    if (digitalRead(readingButton) == LOW) 
+  
+  if (digitalRead(readingButton) == LOW) 
   {
+    Serial.println("4");
     Keyboard.write(52); //4
-    delay (100);
+    while(!digitalRead(readingButton)){}
+    delay(300);
   }
 }
