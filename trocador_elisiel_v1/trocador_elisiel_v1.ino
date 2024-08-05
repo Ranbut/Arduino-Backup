@@ -185,7 +185,7 @@ if(delayTime == 1500 && temFicha == false)
   lcd.print(" ");  
 }
 
-if (outEstado == HIGH && atuaisCreditos > 0)
+if (outEstado == HIGH && !segurar && atuaisCreditos > 0)
 { 
   atuaisCreditos--;
   OUT++;
@@ -193,11 +193,16 @@ if (outEstado == HIGH && atuaisCreditos > 0)
   ficha--;
   EEPROM[3] = ficha;
   delayTime = 600;
+  segurar = true;
   lcd.setCursor(9,1);
   lcd.print(atuaisCreditos); 
   lcd.print(" ");
   digitalWrite(Rele, LOW);
   delay(120);
+}
+
+if (outEstado == LOW){
+  segurar = false;
 }
 
 if (estadoLeitura == LOW)
