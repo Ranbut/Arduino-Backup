@@ -15,6 +15,8 @@ const byte COLS = 2;
 
 bool segurando = false;
 
+unsigned long duracao = 0;
+
 byte rowPins[ROWS] = { 2, 3, 4, 5, 6, 7 }; // Marrom, Roxo, Preto, Cinza, Azul, Laranja 
 byte colPins[COLS] = { 8, 9 }; // Vermelho, Branco
 
@@ -98,12 +100,14 @@ void loop() {
     while(!digitalRead(payButton)){}
     delay(300);
   }
-  
+
   if (digitalRead(coinButton) == LOW) 
   {
     Serial.println("P");
-    Keyboard.write(80); //P
-    delay(50);
+    Serial.print("Duração: ");
+    Serial.println(duracao);
+    Keyboard.write(80); //P             
+    duracao = pulseIn(coinButton, HIGH);
   }
   
   if (digitalRead(readingButton) == LOW) 
