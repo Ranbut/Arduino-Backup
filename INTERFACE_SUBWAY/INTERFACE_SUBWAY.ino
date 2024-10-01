@@ -21,7 +21,7 @@ void setup() {
   pinMode(leftButton, INPUT_PULLUP);
   pinMode(rightButton, INPUT_PULLUP);
   pinMode(startButton, INPUT_PULLUP);
-  pinMode(coinButton, INPUT_PULLUP);
+  pinMode(coinButton, INPUT);
   pinMode(countPin, OUTPUT);
 
   digitalWrite(countPin, HIGH);
@@ -29,53 +29,53 @@ void setup() {
 }
 
 void loop() {
-  
   //Terra
   if (digitalRead(upButton) == LOW) 
   {
     Keyboard.press(KEY_UP_ARROW);
-    Keyboard.releaseAll();
-    while(!digitalRead(upButton)){}
-    delay(100);
+  }
+  else{
+    Keyboard.release(KEY_UP_ARROW);
   }
 
   if (digitalRead(downButton) == LOW) 
   {
     Keyboard.press(KEY_DOWN_ARROW);
-    Keyboard.releaseAll();
-    while(!digitalRead(downButton)){}
-    delay(100);
+
+  }
+  else{
+    Keyboard.release(KEY_DOWN_ARROW);
   }
 
   if (digitalRead(leftButton) == LOW) 
   {
     Keyboard.press(KEY_LEFT_ARROW);
-    Keyboard.releaseAll();
-    while(!digitalRead(leftButton)){}
-    delay(100);
+  }
+  else{
+    Keyboard.release(KEY_LEFT_ARROW);
   }
 
   if (digitalRead(rightButton) == LOW) 
   {
     Keyboard.press(KEY_RIGHT_ARROW);
-    Keyboard.releaseAll();
-    while(!digitalRead(rightButton)){}
-    delay(100);
+  }
+  else{
+    Keyboard.release(KEY_RIGHT_ARROW);
   }
 
   if (digitalRead(startButton) == LOW) 
   {
-    Keyboard.write(49);
-    while(!digitalRead(startButton)){}
-    delay(100);
+    Keyboard.press(49);
+  }
+  else{
+    Keyboard.release(49);
   }
   
   if (digitalRead(coinButton) == LOW) 
   {
-    Serial.println("Funcionou crédito!");
-    Keyboard.write(53);
+    Keyboard.write(229);
     digitalWrite(countPin, LOW);
     pulseIn(coinButton, HIGH);
     digitalWrite(countPin, HIGH);
-  }
+  } 
 }
